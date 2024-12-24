@@ -1,0 +1,61 @@
+daniillednik=# CREATE TABLE trade_points (
+    id SERIAL PRIMARY KEY,
+    city VARCHAR(50) NOT NULL,
+    street VARCHAR(100) NOT NULL,
+    house_number VARCHAR(10) NOT NULL,
+    working_hours_start TIME NOT NULL,
+    working_hours_end TIME NOT NULL,
+    working_days_start VARCHAR(10) NOT NULL,
+    working_days_end VARCHAR(10) NOT NULL,
+    lunch_break BOOLEAN NOT NULL
+);
+
+CREATE TABLE
+
+daniillednik=# INSERT INTO trade_points (city, street, house_number, working_hours_start, working_hours_end, working_days_start, working_days_end, lunch_break)
+VALUES
+    -- Москва
+    ('Москва', 'Тверская', '10', '08:00', '20:00', 'Понедельник', 'Воскресенье', FALSE),
+    ('Москва', 'Арбатская', '15', '09:00', '21:00', 'Понедельник', 'Суббота', TRUE),
+
+    -- Санкт-Петербург
+    ('Санкт-Петербург', 'Невская', '5', '08:00', '22:00', 'Понедельник', 'Суббота', FALSE),
+    ('Санкт-Петербург', 'Московская', '20', '10:00', '18:00', 'Понедельник', 'Пятница', TRUE),
+
+    -- Новосибирск
+    ('Новосибирск', 'Красная', '25', '08:00', '20:00', 'Понедельник', 'Воскресенье', TRUE),
+    ('Новосибирск', 'Ленина', '30', '07:00', '23:00', 'Понедельник', 'Суббота', FALSE);
+
+ERROR:  value too long for type character varying(10)
+
+daniillednik=# ALTER TABLE trade_points
+ALTER COLUMN working_days_start TYPE VARCHAR(15);
+ALTER TABLE trade_points
+ALTER COLUMN working_days_end TYPE VARCHAR(15);
+
+ALTER TABLE
+ALTER TABLE
+
+daniillednik=# INSERT INTO trade_points (city, street, house_number, working_hours_start, working_hours_end, working_days_start, working_days_end, lunch_break)
+VALUES
+    ('Москва', 'Тверская', '10', '08:00', '20:00', 'Понедельник', 'Воскресенье', FALSE),
+    ('Москва', 'Арбатская', '15', '09:00', '21:00', 'Понедельник', 'Суббота', TRUE),
+    ('Санкт-Петербург', 'Невская', '5', '08:00', '22:00', 'Понедельник', 'Суббота', FALSE),
+    ('Санкт-Петербург', 'Московская', '20', '10:00', '18:00', 'Понедельник', 'Пятница', TRUE),
+    ('Новосибирск', 'Красная', '25', '08:00', '20:00', 'Понедельник', 'Воскресенье', TRUE),
+    ('Новосибирск', 'Ленина', '30', '07:00', '23:00', 'Понедельник', 'Суббота', FALSE);
+
+INSERT 0 6
+
+daniillednik=# UPDATE trade_points
+SET working_hours_start = '00:00', working_hours_end = '23:59'
+WHERE city = 'Москва';
+UPDATE 2
+daniillednik=# UPDATE trade_points
+SET lunch_break = TRUE
+WHERE city = 'Санкт-Петербург';
+UPDATE 2
+daniillednik=# DELETE FROM trade_points
+WHERE street NOT LIKE '%ская%';
+DELETE 2
+daniillednik=# 

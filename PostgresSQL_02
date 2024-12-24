@@ -1,0 +1,59 @@
+postgres=# create database my_db owner daniillednik;
+CREATE DATABASE
+
+postgres=# \c my_db
+psql (17.0, server 14.15 (Homebrew))
+You are now connected to database "my_db" as user "daniillednik".
+
+my_db=# create schema my_schema authorization daniillednik;
+CREATE SCHEMA
+
+my_db=# CREATE TABLE my_schema.products (
+my_db(#     id SERIAL PRIMARY KEY,
+my_db(#     name VARCHAR(50) NOT NULL,
+my_db(#     expiry_date DATE,
+my_db(#     price NUMERIC(10, 2) NOT NULL,
+my_db(#     category VARCHAR(50) NOT NULL
+my_db(# );
+
+CREATE TABLE
+
+my_db=# INSERT INTO my_schema.products (name, expiry_date, price, category)
+my_db-# VALUES
+my_db-#     ('Laptop', NULL, 1000.00, 'Electronics'),
+my_db-#     ('Smartphone', NULL, 800.00, 'Electronics'),
+my_db-#     ('Headphones', NULL, 200.00, 'Electronics'),
+my_db-#     ('Bread', '2024-01-01', 2.50, 'Food'),
+my_db-#     ('Milk', '2024-01-05', 1.20, 'Food'),
+my_db-#     ('Cheese', '2024-02-01', 5.00, 'Food'),
+my_db-#     ('T-shirt', NULL, 15.00, 'Clothing'),
+my_db-#     ('Jeans', NULL, 40.00, 'Clothing'),
+my_db-#     ('Jacket', NULL, 60.00, 'Clothing'),
+my_db-#     ('Novel', NULL, 12.99, 'Books'),
+my_db-#     ('Notebook', NULL, 5.99, 'Books'),
+my_db-#     ('Cookbook', NULL, 25.00, 'Books'),
+my_db-#     ('Sofa', NULL, 500.00, 'Furniture'),
+my_db-#     ('Table', NULL, 250.00, 'Furniture'),
+my_db-#     ('Chair', NULL, 75.00, 'Furniture');
+
+INSERT 0 15
+
+my_db=# select * from my_schema.products order by price;
+ id |    name    | expiry_date |  price  |  category   
+----+------------+-------------+---------+-------------
+  5 | Milk       | 2024-01-05  |    1.20 | Food
+  4 | Bread      | 2024-01-01  |    2.50 | Food
+  6 | Cheese     | 2024-02-01  |    5.00 | Food
+ 11 | Notebook   |             |    5.99 | Books
+ 10 | Novel      |             |   12.99 | Books
+  7 | T-shirt    |             |   15.00 | Clothing
+ 12 | Cookbook   |             |   25.00 | Books
+  8 | Jeans      |             |   40.00 | Clothing
+  9 | Jacket     |             |   60.00 | Clothing
+ 15 | Chair      |             |   75.00 | Furniture
+  3 | Headphones |             |  200.00 | Electronics
+ 14 | Table      |             |  250.00 | Furniture
+ 13 | Sofa       |             |  500.00 | Furniture
+  2 | Smartphone |             |  800.00 | Electronics
+  1 | Laptop     |             | 1000.00 | Electronics
+(15 rows)

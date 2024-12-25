@@ -1,0 +1,44 @@
+postgres=# CREATE TABLE animal_types (
+postgres(#     id SERIAL PRIMARY KEY,
+postgres(#     type_name VARCHAR(100) NOT NULL, 
+postgres(#     min_height NUMERIC(5, 2) NOT NULL,
+postgres(#     max_height NUMERIC(5, 2) NOT NULL, 
+postgres(#     min_weight NUMERIC(5, 2) NOT NULL,
+postgres(#     max_weight NUMERIC(5, 2) NOT NULL 
+postgres(# );
+CREATE TABLE
+postgres=# CREATE TABLE pets (
+postgres(#     id SERIAL PRIMARY KEY,
+postgres(#     name VARCHAR(100) NOT NULL, 
+postgres(#     breed VARCHAR(100) NOT NULL, 
+postgres(#     type_id INT NOT NULL REFERENCES animal_types(id) 
+postgres(# );
+CREATE TABLE
+postgres=# INSERT INTO animal_types (type_name, min_height, max_height, min_weight, max_weight)
+postgres-# VALUES
+postgres-#     ('Собака', 20.0, 100.0, 2.0, 60.0),
+postgres-#     ('Кошка', 15.0, 50.0, 1.0, 10.0),
+postgres-#     ('Попугай', 5.0, 30.0, 0.1, 1.5);
+INSERT 0 3
+postgres=# INSERT INTO pets (name, breed, type_id)
+postgres-# VALUES
+postgres-#     ('Барсик', 'Сибирская', 2),
+postgres-#     ('Шарик', 'Лабрадор', 1),
+postgres-#     ('Кеша', 'Корелла', 3);
+INSERT 0 3
+postgres=# SELECT 
+postgres-#     p.name AS pet_name,
+postgres-#     p.breed AS pet_breed,
+postgres-#     t.type_name AS animal_type,
+postgres-#     (t.min_height + t.max_height) / 2 AS avg_height,
+postgres-#     (t.min_weight + t.max_weight) / 2 AS avg_weight
+postgres-# FROM 
+postgres-#     pets p
+postgres-# JOIN 
+postgres-#     animal_types t ON p.type_id = t.id
+postgres-# WHERE 
+postgres-#     p.name = 'Барсик';
+ pet_name | pet_breed | animal_type |     avg_height      |     avg_weight     
+----------+-----------+-------------+---------------------+--------------------
+ Барсик   | Сибирская | Кошка       | 32.5000000000000000 | 5.5000000000000000
+(1 row)
